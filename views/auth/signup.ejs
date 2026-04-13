@@ -1,0 +1,86 @@
+<%- include('../partials/head') %>
+</head>
+<body class="bg-[#f7f7f7] font-sans antialiased text-gray-800">
+  
+  <%- include('../partials/header') %>
+<main class="min-h-[calc(100vh-60px)] flex items-start justify-center pt-10 px-4 pb-20">
+    
+    <div class="bg-white w-full max-w-[500px] p-8 md:p-10 rounded-lg shadow-sm border border-gray-100">
+      
+      <h1 class="text-2xl font-bold text-center text-[#222222] mb-5">Create Your Account</h1>
+      
+      <hr class="border-gray-100 mb-6">
+
+      <form action="/signup" method="POST" class="space-y-4">
+        <%- include('../partials/errors') %>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="space-y-1">
+            <label class="text-[13px] font-bold text-[#444]">First Name</label>
+            <div class="flex items-center border border-gray-200 rounded-md px-3 py-2.5 bg-white">
+              <i class="fa-solid fa-user text-gray-400 w-5 text-center mr-2 text-sm"></i>
+              <input type="text" name="firstName" placeholder="John" class="w-full outline-none text-[14px] text-gray-700 placeholder-gray-400" value="<%= oldInput.firstName?oldInput.firstName:'' %>">
+            </div>
+          </div>
+          <div class="space-y-1">
+            <label class="text-[13px] font-bold text-[#444]">Last Name</label>
+            <div class="flex items-center border border-gray-200 rounded-md px-3 py-2.5 bg-white">
+              <i class="fa-solid fa-user text-gray-400 w-5 text-center mr-2 text-sm"></i>
+              <input type="text" name="lastName" placeholder="Doe" class="w-full outline-none text-[14px] text-gray-700 placeholder-gray-400" value="<%= oldInput.lastName?oldInput.lastName:'' %>">
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-1">
+          <label class="text-[13px] font-bold text-[#444]">Email Address</label>
+          <div class="flex items-center border border-gray-200 rounded-md px-3 py-2.5 bg-white">
+            <i class="fa-solid fa-envelope text-gray-400 w-5 text-center mr-2 text-sm"></i>
+            <input type="email" name="email" placeholder="your.email@example.com" class="w-full outline-none text-[14px] text-gray-700 placeholder-gray-400" value="<%= oldInput.email?oldInput.email:'' %>">
+          </div>
+        </div>
+
+        <div class="space-y-1">
+          <label class="text-[13px] font-bold text-[#444]">Password</label>
+          <div class="flex items-center border border-gray-200 rounded-md px-3 py-2.5 bg-white">
+            <i class="fa-solid fa-lock text-gray-400 w-5 text-center mr-2 text-sm"></i>
+            <input type="password" name="password" placeholder="Enter Your Password" class="w-full outline-none text-[14px] text-gray-700 placeholder-gray-400" value="<%= oldInput.password?oldInput.password:'' %>">
+          </div>
+        </div>
+
+        <div class="space-y-1">
+          <label class="text-[13px] font-bold text-[#444]">Confirm Password</label>
+          <div class="flex items-center border-2 border-[#dc2626] rounded-md px-3 py-2 bg-white">
+            <i class="fa-solid fa-lock text-gray-400 w-5 text-center mr-2 text-sm"></i>
+            <input type="password" name="confirmPassword" placeholder="Confirm Your Password" class="w-full outline-none text-[14px] text-gray-700 placeholder-gray-400" value="<%= oldInput.confirmPassword?oldInput.confirmPassword:'' %>">
+          </div>
+        </div>
+
+        <div class="bg-[#fafafa] border border-gray-100 p-4 rounded-md mt-2">
+          <p class="text-[13px] font-bold text-[#444] mb-3">I want to register as:</p>
+          <div class="flex items-center gap-6">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="usertype" value="guest" checked class="w-4 h-4 text-blue-600 focus:ring-blue-500 cursor-pointer">
+              <span class="text-[14px] font-semibold text-gray-800">Guest</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="usertype" value="host" class="w-4 h-4 text-blue-600 focus:ring-blue-500 cursor-pointer">
+              <span class="text-[14px] font-semibold text-gray-800">Host</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 pt-2 pb-2">
+          <input type="checkbox" name="terms" class="w-4 h-4 rounded border-gray-300 text-red-500 focus:ring-red-500 cursor-pointer">
+          <label class="text-[14px] font-semibold text-[#444]">
+            I agree to the <a href="https://www.google.com" class="text-[#f43f5e] hover:underline">terms and conditions</a>
+          </label>
+        </div>
+
+        <button type="submit" class="w-full bg-[#f43f5e] hover:bg-[#e11d48] text-white font-bold py-3 rounded-md transition-colors flex items-center justify-center gap-2">
+          Register <i class="fa-solid fa-arrow-right text-sm"></i>
+        </button> 
+        
+      </form> 
+    </div>
+  </main>
+</body>
+</html>

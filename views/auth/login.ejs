@@ -1,0 +1,55 @@
+<%- include('../partials/head') %>
+</head>
+<body class="bg-slate-100 font-sans text-slate-900">
+  <%- include('../partials/header') %>
+  <main class="min-h-screen flex items-center justify-center py-10 px-4">
+    <section class="w-full max-w-xl bg-white shadow-xl rounded-3xl border border-slate-200 overflow-hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
+        <div class="hidden lg:block bg-gradient-to-b from-rose-600 to-red-800 text-white p-10">
+          <div class="flex h-full flex-col justify-between">
+            <div>
+              <h2 class="text-3xl font-semibold tracking-tight">Welcome back to Airbnb.</h2>
+              <p class="mt-4 text-sm leading-6 text-rose-100/90">Log in to browse stunning homes, manage your bookings, or list your property for guests worldwide.</p>
+            </div>
+            <div class="mt-10 rounded-3xl bg-white/10 p-6 backdrop-blur-sm">
+              <p class="text-xs uppercase tracking-[0.2em] text-rose-200 mb-2">Your Space Awaits</p>
+              <p class="text-sm leading-6 text-rose-100/90">Whether you're looking for a getaway or earning from your home, access everything instantly.</p>
+            </div>
+          </div>
+        </div>
+        <div class="p-8 sm:p-10">
+          <div class="mb-8 text-center">
+            <span class="inline-flex items-center justify-center rounded-full bg-rose-100 px-3 py-1 text-sm font-semibold text-rose-800">Reconnect</span>
+            <h1 class="mt-6 text-2xl font-semibold tracking-tight text-slate-900">Continue your journey</h1>
+            <p class="mt-3 text-sm text-slate-600">Log in to your account and discover your next perfect home or manage your property effortlessly.</p>
+          </div>
+          <form class="space-y-5" action="/login" method="POST">
+             <%- include('../partials/errors') %>
+            <label class="block">
+              <span class="text-sm font-medium text-slate-700">Email address</span>
+              <input type="email" name="email" required placeholder="name@example.com" class="mt-2 w-full rounded-2xl border border-slate-300 bg-slate-50 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-100" />
+            </label>
+
+            <label class="block">
+              <span class="text-sm font-medium text-slate-700">Password</span>
+              <input type="password" name="password" required placeholder="Enter your password" class="mt-2 w-full rounded-2xl border border-slate-300 bg-slate-50 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-100" />
+            </label>
+
+            <div class="flex items-center justify-between">
+              <label class="flex items-center gap-2">
+                <input type="checkbox" class="h-4 w-4 text-rose-600 accent-rose-600" />
+                <span class="text-sm text-slate-600">Keep me logged in</span>
+              </label>
+              <a href="#" class="text-sm font-semibold text-rose-600 hover:text-rose-700">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="w-full rounded-2xl bg-rose-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-rose-600/10 transition hover:bg-rose-700">Log in</button>
+          </form>
+
+          <p class="mt-6 text-center text-sm text-slate-500">New to Airbnb? <a href="/signup" class="font-semibold text-rose-600 hover:text-rose-700">Create account</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

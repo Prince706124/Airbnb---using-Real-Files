@@ -1,0 +1,116 @@
+<%- include('../partials/head') %>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 font-sans">
+    <%- include('../partials/header') %>
+    <main class="mt-20 px-4 md:px-8 lg:px-12 py-12">
+        <div class="max-w-7xl mx-auto">
+            <!-- Hero Section -->
+            <div class="text-center mb-16">
+                <h1 class="text-5xl md:text-6xl font-bold text-gray-800 mb-4">
+                    Welcome to <span class="text-red-500">Airbnb</span>
+                </h1>
+                <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+                    Discover unique homes and experiences around the world
+                </p>
+                <div class="w-32 h-1 bg-gradient-to-r from-red-500 to-pink-500 rounded-full mx-auto"></div>
+            </div>
+
+            <!-- Featured Homes Section -->
+            <div class="mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-3">Featured Homes</h2>
+                <p class="text-gray-600 text-lg">Explore our handpicked selection of amazing properties</p>
+            </div>
+
+            <!-- Homes Grid -->
+            <% if (registeredHomes && registeredHomes.length > 0) { %>
+                <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    <% registeredHomes.forEach(home=>{ %>
+                        <li class="group bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden">
+                            <!-- Image Container -->
+                            <div class="relative h-48 md:h-56 overflow-hidden bg-gray-200">
+                                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                                     src="<%= home.photo %>"
+                                     alt="<%= home.Name %>">
+                                <div class="absolute top-3 right-3 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                                    Featured
+                                </div>
+                                <!-- Overlay with quick actions -->
+                                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+                                    <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex gap-3">
+                                        <a href="/homes/<%=home._id%>" class="bg-white text-gray-800 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                                            View Details
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Content Container -->
+                            <div class="p-5 md:p-6">
+                                <!-- Property Name -->
+                                <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-2 line-clamp-2 group-hover:text-red-500 transition-colors">
+                                    <%= home.Name %>
+                                </h2>
+
+                                <!-- Details Grid -->
+                                <div class="space-y-3 mb-5">
+                                    <!-- Price -->
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-gray-600 text-sm font-medium">Price per night</span>
+                                        <span class="text-2xl font-bold text-red-500">
+                                            ₹<%= home.price %>
+                                        </span>
+                                    </div>
+
+                                    <!-- Rooms -->
+                                    <div class="flex items-center gap-2">
+                                        <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M10.5 1.5H3.75A2.25 2.25 0 001.5 3.75v12.5A2.25 2.25 0 003.75 18.5h12.5a2.25 2.25 0 002.25-2.25V9.5m-15-4h4m-4 4h4m-4 4h4m8-12v4m0 4v4"></path>
+                                        </svg>
+                                        <span class="text-gray-700 font-medium"><%= home.rooms %> <%= home.rooms == 1 ? 'Room' : 'Rooms' %></span>
+                                    </div>
+
+                                    <!-- Food Type -->
+                                    <div class="flex items-center gap-2">
+                                        <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm0 6a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6z"></path>
+                                        </svg>
+                                        <span class="text-gray-700 font-medium capitalize"><%= home.food %></span>
+                                    </div>
+                                </div>
+
+                                <!-- Action Button -->
+                                <button class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center justify-center gap-2">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16l4-4m0 0l4-4m-4 4l-4-4m4 4l4 4"></path>
+                                    </svg>
+                                    Book Now
+                                </button>
+                            </div>
+                        </li>
+                    <% }); %>
+                </ul>
+
+                <!-- Call to Action -->
+                <div class="text-center mt-16">
+                    <a href="/home-list" class="inline-block bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95 text-lg">
+                        View All Homes
+                    </a>
+                </div>
+            <% } else { %>
+                <!-- Empty State -->
+                <div class="text-center py-16">
+                    <svg class="w-24 h-24 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                    </svg>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2">No Homes Available</h2>
+                    <p class="text-gray-600 mb-6">We're working on adding amazing properties. Check back soon!</p>
+                    <a href="/home-list" class="inline-block bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-8 rounded-lg transition-colors duration-300">
+                        Browse Categories
+                    </a>
+                </div>
+            <% } %>
+        </div>
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,159 @@
+<%- include('../partials/head') %>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 font-sans">
+  <%- include('../partials/header') %>
+    <main class="mt-20 px-4 md:px-8 lg:px-12 py-12">
+        <div class="max-w-2xl mx-auto">
+            <!-- Header Section -->
+            <div class="text-center mb-12">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-3">
+                    <%= editing ? 'Edit Your Home' : 'Add New Home' %>
+                </h1>
+                <p class="text-gray-600 text-lg max-w-md mx-auto">
+                    <%= editing ? 'Update your property details' : 'Share your amazing property with travelers' %>
+                </p>
+                <div class="w-24 h-1 bg-gradient-to-r from-red-500 to-pink-500 rounded-full mx-auto mt-4"></div>
+            </div>
+
+            <!-- Form Container -->
+            <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12">
+                <form class="space-y-8" action="/host/<%=editing?'edit-home':'submitted'%>" method="POST" enctype="multipart/form-data">
+                    <!-- Hidden ID Field -->
+                    <input type="hidden" name="id" value="<%=home?home._id:''%>">
+
+                    <!-- Property Name -->
+                    <div class="space-y-2">
+                        <label for="Name" class="text-lg font-semibold text-gray-800 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                            </svg>
+                            Property Name
+                        </label>
+                        <input class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 text-gray-800 placeholder-gray-400" type="text" name="Name" id="Name"
+                        value="<%=home?home.Name:''%>" placeholder="Enter your property name" required>
+                    </div>
+
+                    <!-- Price -->
+                    <div class="space-y-2">
+                        <label for="price" class="text-lg font-semibold text-gray-800 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                            </svg>
+                            Price per Night
+                        </label>
+                        <div class="relative">
+                            <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 font-semibold">₹</span>
+                            <input class="w-full pl-8 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 text-gray-800 placeholder-gray-400" type="number" name="price" id="price"
+                            value="<%=home?home.price:''%>" placeholder="0" min="1" required>
+                        </div>
+                    </div>
+
+                    <!-- Number of Rooms -->
+                    <div class="space-y-2">
+                        <label for="rooms" class="text-lg font-semibold text-gray-800 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v2H8V5z"></path>
+                            </svg>
+                            Number of Rooms
+                        </label>
+                        <input class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 text-gray-800 placeholder-gray-400" type="number" name="rooms" id="rooms"
+                        value="<%=home?home.rooms:''%>" placeholder="1" min="1" required>
+                    </div>
+
+                    <!-- Photo Upload -->
+                    <div class="space-y-2">
+                        <label for="photo" class="text-lg font-semibold text-gray-800 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            Property Photo
+                        </label>
+                        <div class="relative">
+                            <input class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 text-gray-800 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-500 hover:file:bg-red-100" type="file" accept="image/*" name="photo" id="photo" <%= editing ? '' : 'required' %>>
+                            <p class="text-sm text-gray-500 mt-2">Upload a high-quality image of your property (JPG, PNG, etc.)</p>
+                        </div>
+                        <% if (editing && home && home.photo) { %>
+                            <div class="mt-4">
+                                <p class="text-sm text-gray-600 mb-2">Current image:</p>
+                                <img src="<%= home.photo %>" alt="Current property image" class="w-32 h-24 object-cover rounded-lg border">
+                            </div>
+                        <% } %>
+                    </div>
+
+                    <!-- Food Type -->
+                    <div class="space-y-4">
+                        <label class="text-lg font-semibold text-gray-800 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            </svg>
+                            Food Type
+                        </label>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <label class="relative flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-red-300 hover:bg-red-50 transition-all duration-300 <%= home && home.food === 'vegetarian' ? 'border-red-500 bg-red-50' : '' %>">
+                                <input type="radio" id="vegetarian" name="food" value="vegetarian" class="sr-only" <%= home && home.food === 'vegetarian' ? 'checked' : '' %> required>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-4 h-4 border-2 border-gray-300 rounded-full flex items-center justify-center <%= home && home.food === 'vegetarian' ? 'border-red-500' : '' %>">
+                                        <div class="w-2 h-2 bg-red-500 rounded-full <%= home && home.food === 'vegetarian' ? 'block' : 'hidden' %>"></div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <svg class="w-6 h-6 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span class="text-gray-800 font-medium">Vegetarian</span>
+                                    </div>
+                                </div>
+                            </label>
+
+                            <label class="relative flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-red-300 hover:bg-red-50 transition-all duration-300 <%= home && home.food === 'non-vegetarian' ? 'border-red-500 bg-red-50' : '' %>">
+                                <input type="radio" id="non-vegetarian" name="food" value="non-vegetarian" class="sr-only" <%= home && home.food === 'non-vegetarian' ? 'checked' : '' %>>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-4 h-4 border-2 border-gray-300 rounded-full flex items-center justify-center <%= home && home.food === 'non-vegetarian' ? 'border-red-500' : '' %>">
+                                        <div class="w-2 h-2 bg-red-500 rounded-full <%= home && home.food === 'non-vegetarian' ? 'block' : 'hidden' %>"></div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <svg class="w-6 h-6 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                        <span class="text-gray-800 font-medium">Non-Vegetarian</span>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="space-y-2">
+                        <label for="description" class="text-lg font-semibold text-gray-800 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path>
+                            </svg>
+                            Description
+                        </label>
+                        <textarea name="description" id="description" rows="4" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 text-gray-800 placeholder-gray-400 resize-vertical" placeholder="Describe your property, amenities, location, and what makes it special..." required><%= editing && home ? home.description : '' %></textarea>
+                        <p class="text-sm text-gray-500">Provide a detailed description to help guests understand what your property offers.</p>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="w-full bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center justify-center gap-3 text-lg shadow-lg">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <%= editing ? 'Update Home' : 'Add Home' %>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Back to Dashboard -->
+            <div class="text-center mt-8">
+                <a href="/host/host-homelist" class="inline-flex items-center gap-2 text-gray-600 hover:text-red-500 transition-colors font-medium">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                    Back to Host Dashboard
+                </a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
