@@ -2,6 +2,7 @@ const http = require('http')
 const path = require('path')
 const express = require('express');
 const multer = require('multer');
+const serverless = require('serverless-http');
 const rootDir = require('./utils/path');
 const userRouter = require('./routes/user');
 const {hostRouter} = require('./routes/host');
@@ -80,12 +81,48 @@ app.use(authRouter);
 app.use(errorcontroller.get404);
 
 
-const server = http.createServer(app);
-const PORT = 3002;
-mongoose.connect(DB_PATH).then(()=>{
-    server.listen(PORT,()=>{
-    console.log(`server is running at http://localhost:${PORT}/`);
-    });
-}).catch((err)=>{
-    console.log('Error connecting to Mongo:', err);
+// Database connection for serverless
+let isConnected = false;
+
+const connectToDatabase = async () => {
+  if (isConnected) return;
+  try {
+    await mongoose.connect(DB_PATH);
+    isConnected = true;
+    console.log('Connected to MongoDB');
+  } catch (error) {
+    console.error('Database connection error:', error);
+    throw error;
+  }
+};
+
+// Middleware to ensure database connection
+app.use(async (req, res, next) => {
+  try {
+    await connectToDatabase();
+    next();
+  } catch (error) {
+    console.error('Database connection failed:', error);
+    res.status(500).send('Database connection failed');
+  }
 });
+
+const server = http.createServer(app);
+const PORT = process.env.PORT || 3002;
+
+// For local development
+if (require.main === module) {
+  mongoose.connect(DB_PATH).then(()=>{
+    server.listen(PORT,()=>{
+      console.log(`server is running at http://localhost:${PORT}/`);
+    });
+  }).catch((err)=>{
+    console.log('Error connecting to Mongo:', err);
+  });
+}
+
+// Export for serverless deployment
+module.exports = app;
+
+// For serverless-express compatibility
+module.exports.handler = serverless(app);

@@ -1,0 +1,36 @@
+# Serverless configuration for Airbnb app
+# WARNING: This app is not well-suited for serverless deployment
+# Consider using traditional hosting instead
+
+service: airbnb-app
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  environment:
+    NODE_ENV: production
+    DB_PATH: ${env:DB_PATH}
+
+functions:
+  app:
+    handler: app.handler
+    events:
+      - http:
+          path: /
+          method: ANY
+          cors: true
+      - http:
+          path: /{proxy+}
+          method: ANY
+          cors: true
+
+plugins:
+  - serverless-express
+
+custom:
+  serverless-express:
+    binaryMimeTypes:
+      - image/jpeg
+      - image/png
+      - application/pdf
